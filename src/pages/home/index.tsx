@@ -5,12 +5,18 @@ import { useState } from "react";
 import { CategoriesObjectType, MarksObject } from "../../providers/data/types";
 import SectionTitle from "../../components/section-title";
 import ButtonList from "../../components/button-list";
+import Modal from "../../components/modal";
+import { AddCategoryTemplate } from "./popup-templates/add-category/AddCategoryTemplate";
 
 function Home() {
   const { data } = useData();
+
+  const [categoryModalState, setCategoryModalState] = useState(false);
+
   const [selected, setSelected] = useState<CategoriesObjectType>(
     {} as CategoriesObjectType
   );
+
   const navigate = useNavigate();
 
   const handleClickCategory = (
@@ -27,13 +33,21 @@ function Home() {
     navigate(`/category/${mark.id}`, { state: { mark } });
   };
 
+  const openCategoryModal = (state: boolean) => {
+    console.log(!categoryModalState);
+    setCategoryModalState(state);
+  };
+
   const isSelected = !!Object.keys(selected).length;
 
   return (
     <StyledHome>
       <h1>Mark.it</h1>
 
-      <SectionTitle title="Categories" onClick={() => {}} />
+      <SectionTitle
+        title="Categories"
+        onClick={() => openCategoryModal(true)}
+      />
 
       <ButtonList data={data} onClick={handleClickCategory} />
 
@@ -43,6 +57,13 @@ function Home() {
           <ButtonList data={selected.marks || []} onClick={handleClickMark} />
         </>
       )}
+
+      <Modal
+        show={categoryModalState}
+        setShow={setCategoryModalState}
+        title="Adicionar Categoria"
+        content={<AddCategoryTemplate setShow={setCategoryModalState} />}
+      />
     </StyledHome>
   );
 }

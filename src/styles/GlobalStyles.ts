@@ -9,7 +9,9 @@ const GlobalStyle = createGlobalStyle`
     --tertiary: #f28c9f;
     --light-font: #fff;
     --dark-font: #727272;
+    --border: #dddddd;
     --main-background: #fff;
+    --transparent-dark: rgb(183, 183, 183,0.1);
 
     --title-font:  'Titan One', cursive;
     --text-font: 'Titillium Web', sans-serif ;
