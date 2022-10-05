@@ -11,14 +11,18 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "axios": "^0.27.2",
+    "date-fns": "^2.29.3",
     "dayjs": "^1.11.5",
     "react": "^18.2.0",
+    "react-date-range-ts": "^1.6.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.0.8",
     "styled-components": "^5.3.6",
     "typescript": "^4.4.2",
+    "util": "^0.12.4",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

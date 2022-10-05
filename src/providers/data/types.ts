@@ -3,25 +3,41 @@ export interface Props {
   children: ReactNode;
 }
 
-export interface IEntries {
-  id: number;
+export interface ITimeEntriesObject {
+  id: string | number;
   date: Date;
 }
 
-export interface MarksObject {
-  id: number;
+export interface IMarksObject {
+  id: string | number;
   color: string;
   name: string;
-  entries: IEntries[] | [];
+  entries: ITimeEntriesObject[] | [];
 }
 
-export interface CategoriesObjectType {
-  id: number;
+export interface ICategoriesObject {
+  id: string | number;
   color: string;
   name: string;
-  marks: MarksObject[] | [];
+  marks: IMarksObject[] | [];
 }
 
-export interface Data {
-  data: CategoriesObjectType[];
+export interface IData {
+  data: ICategoriesObject[];
+  createCategory: (payload: ICategoriesObject) => void;
+  deleteCategory: (categoryId: string | number) => void;
+  createMark: (categoryId: string | number, payload: IMarksObject) => void;
+  deleteMark: (categoryId: string | number, markId: string) => void;
+  createTimeEntry: (
+    categoryId: string | number,
+    markId: string | number,
+    payload: ITimeEntriesObject
+  ) => void;
+  deleteTimeEntry: (
+    categoryId: string | number,
+    markId: string | number,
+    entryId: string | number
+  ) => void;
 }
+
+export type IdType = string | number;

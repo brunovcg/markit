@@ -1,6 +1,6 @@
-import { CategoriesObjectType, MarksObject } from "../../providers/data/types";
+import { ICategoriesObject, IMarksObject } from "../../providers/data/types";
 
 export interface ButtonListProps {
-  data: CategoriesObjectType[] | MarksObject[] | [];
+  data: ICategoriesObject[] | IMarksObject[] | [];
   onClick: Function;
 }

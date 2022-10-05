@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputStyled = styled.div`
+export const SelectStyled = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -11,13 +11,11 @@ export const InputStyled = styled.div`
     color: var(--secondary);
   }
 
-  input {
+  select {
     border: 1px solid var(--border);
     height: 30px;
     width: 300px;
     padding-left: 5px;
-    ::placeholder {
-      font-size: 12px;
-    }
+    color: var(--dark-font);
   }
 `;

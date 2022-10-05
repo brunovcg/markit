@@ -5,6 +5,7 @@ export interface ButtonStyledProps {
   color?: string;
   size: "small" | "medium" | "large" | "fit-content";
   round?: boolean;
+  outlineColor?: string;
 }
 
 export interface ButtonProps extends ButtonStyledProps {
@@ -25,4 +26,8 @@ export interface SetHeight {
 export type SetBackground = {
   variant?: string;
   color?: string;
+};
+
+export type SetOutline = {
+  outlineColor?: string;
 };

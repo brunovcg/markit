@@ -5,13 +5,15 @@ export const StyledSectionButton = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 60px 0 30px 0;
 
   .dashed {
-    font-size: 30px;
+    font-size: 40px;
+    color: var(--secondary);
   }
 
   h2 {
-    color: var(--dark-font);
+    color: var(--light-font);
     font-family: var(--text-font);
     font-weight: 700;
     font-size: 30px;

@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     --dark-font: #727272;
     --border: #dddddd;
     --main-background: #fff;
-    --transparent-dark: rgb(183, 183, 183,0.1);
+    --transparent-dark: rgb(0, 0, 0,0.7);
 
     --title-font:  'Titan One', cursive;
     --text-font: 'Titillium Web', sans-serif ;

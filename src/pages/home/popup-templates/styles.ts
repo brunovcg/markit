@@ -5,4 +5,9 @@ export const TemplateStyled = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  .buttons {
+    display: flex;
+    gap: 20px;
+  }
 `;

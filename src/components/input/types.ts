@@ -3,4 +3,5 @@ export interface IInput {
   error?: boolean;
   ID: string;
   label?: string;
+  type?: string;
 }

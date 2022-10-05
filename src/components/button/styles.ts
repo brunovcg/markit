@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { ButtonStyledProps, SetBackground, SetWidth, SetHeight } from "./types";
+import {
+  ButtonStyledProps,
+  SetBackground,
+  SetWidth,
+  SetHeight,
+  SetOutline,
+} from "./types";
 
 const setWidth = (props: SetWidth) => {
   const { size, round } = props;
@@ -31,6 +37,16 @@ const setBackground = (props: SetBackground) => {
   return color;
 };
 
+const setOutline = (props: SetOutline) => {
+  const { outlineColor } = props;
+
+  if (outlineColor) {
+    return `4px solid ${outlineColor}`;
+  }
+
+  return "none";
+};
+
 const StyledButton = styled.button<ButtonStyledProps>`
   color: var(--light-font);
   background-color: ${setBackground};
@@ -43,6 +59,7 @@ const StyledButton = styled.button<ButtonStyledProps>`
   height: ${setHeight};
   line-height: 1;
   border-radius: 80px;
+  outline: ${setOutline};
   :hover {
     opacity: 0.8;
   }
