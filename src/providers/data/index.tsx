@@ -113,7 +113,7 @@ export const DataProvider = ({ children }: Props) => {
       (mark) => mark.id === markId
     );
 
-    return newData[categoryIndex]?.marks?.[markIndex]?.entries;
+    return newData[categoryIndex]?.marks?.[markIndex]?.entries ?? [];
   };
 
   useEffect(() => {

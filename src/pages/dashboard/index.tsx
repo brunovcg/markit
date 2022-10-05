@@ -35,11 +35,12 @@ function Dashboard() {
   const handleEditable = () => setEditable(!editable);
 
   const filteredDates =
-    getEntries(categoryId, markId) ??
-    [].filter((item: ITimeEntriesObject) => {
+    getEntries(categoryId, markId).filter((item: ITimeEntriesObject) => {
       if (selectedDateFrom && selectedDateTo) {
+        console.log(isBetween(selectedDateFrom, selectedDateTo, item?.date));
         return isBetween(selectedDateFrom, selectedDateTo, item?.date);
       }
+      console.log(isEqual(selectedDateFrom, item?.date) || !selectedDateFrom);
 
       return isEqual(selectedDateFrom, item?.date) || !selectedDateFrom;
     });
