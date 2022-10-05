@@ -1,8 +1,18 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
-import { addDoc, collection, query, onSnapshot } from "firebase/firestore";
+import {
+  addDoc,
+  doc,
+  updateDoc,
+  collection,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
+import { useState } from "react";
 
 function useFirebase(setData: Function) {
+  const [docId, setDocId] = useState("");
+
   const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -20,19 +30,23 @@ function useFirebase(setData: Function) {
   const writeFirebase = (payload: unknown) => {
     const payloadData = { data: payload };
 
-    addDoc(collection(db, "marks"), payloadData)
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
+    if (!docId) {
+      addDoc(collection(db, "marks"), payloadData)
+        .then((res) => console.log(res))
+        .catch((error) => console.log(error));
+    } else {
+      const ref = doc(db, "marks", "kmpt6Sk0h0C5BaeAiRQc");
+      updateDoc(ref, payloadData);
+    }
   };
 
   const getFirebase = () => {
     const q = query(collection(db, "marks"));
     onSnapshot(q, (querySnapshot) => {
-      const recoverData = querySnapshot.docs.map((item) => item.data());
-
-      setData(recoverData[recoverData.length - 1]?.data || []);
-
-      console.log(recoverData[recoverData.length - 1]?.data )
+      const recoverData = querySnapshot.docs[0]?.data().data;
+      const id = querySnapshot.docs[0]?.id;
+      setDocId(id);
+      setData(recoverData);
     });
   };
 
