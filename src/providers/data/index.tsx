@@ -74,7 +74,7 @@ export const DataProvider = ({ children }: Props) => {
 
     newData[categoryIndex].marks[markIndex].entries = [
       payload,
-      ...(newData[categoryIndex].marks[markIndex]?.entries || []),
+      ...newData[categoryIndex].marks[markIndex]?.entries,
     ];
 
     setData(newData);
@@ -104,6 +104,18 @@ export const DataProvider = ({ children }: Props) => {
     toast.success("Tempo deletado");
   };
 
+  const getEntries = (categoryId: string | number, markId: string | number) => {
+    const newData = [...data];
+    const categoryIndex = newData.findIndex(
+      (category) => category.id === categoryId
+    );
+    const markIndex = newData[categoryIndex]?.marks.findIndex(
+      (mark) => mark.id === markId
+    );
+
+    return newData[categoryIndex]?.marks?.[markIndex]?.entries;
+  };
+
   useEffect(() => {
     getFirebase();
   }, []);
@@ -118,6 +130,7 @@ export const DataProvider = ({ children }: Props) => {
         deleteMark,
         createTimeEntry,
         deleteTimeEntry,
+        getEntries,
       }}
     >
       {children}

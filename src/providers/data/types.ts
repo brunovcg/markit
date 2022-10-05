@@ -5,7 +5,7 @@ export interface Props {
 
 export interface ITimeEntriesObject {
   id: string | number;
-  date: Date;
+  date: string;
 }
 
 export interface IMarksObject {
@@ -38,6 +38,10 @@ export interface IData {
     markId: string | number,
     entryId: string | number
   ) => void;
+  getEntries: (
+    categoryId: string | number,
+    markId: string | number
+  ) => ITimeEntriesObject[] | [];
 }
 
 export type IdType = string | number;

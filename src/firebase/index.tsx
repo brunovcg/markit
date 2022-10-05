@@ -46,7 +46,7 @@ function useFirebase(setData: Function) {
       const recoverData = querySnapshot.docs[0]?.data().data;
       const id = querySnapshot.docs[0]?.id;
       setDocId(id);
-      setData(recoverData);
+      setData(recoverData ?? []);
     });
   };
 

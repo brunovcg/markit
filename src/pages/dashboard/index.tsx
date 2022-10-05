@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useData } from "../../providers/data";
 
 function Dashboard() {
-  const { createTimeEntry } = useData();
+  const { createTimeEntry, getEntries } = useData();
   const navigate = useNavigate();
   const location = useLocation();
   const [editable, setEditable] = useState(false);
@@ -17,7 +17,7 @@ function Dashboard() {
   const handleClick = () => navigate("/");
 
   const { categoryId } = location?.state;
-  const { name, entries, id: markId } = location?.state.mark;
+  const { name, id: markId } = location?.state.mark;
 
   const [selectedDateFrom, setSelectedFrom] = useState<string>("");
   const [selectedDateTo, setSelectedTo] = useState<string>("");
@@ -34,22 +34,21 @@ function Dashboard() {
 
   const handleEditable = () => setEditable(!editable);
 
-  const filteredDates = entries?.filter((item: ITimeEntriesObject) => {
-    if (selectedDateFrom && selectedDateTo) {
-      return isBetween(
-        selectedDateFrom,
-        selectedDateTo,
-        item.date.toISOString()
-      );
-    }
+  const filteredDates =
+    getEntries(categoryId, markId) ??
+    [].filter((item: ITimeEntriesObject) => {
+      if (selectedDateFrom && selectedDateTo) {
+        return isBetween(selectedDateFrom, selectedDateTo, item?.date);
+      }
 
-    return (
-      isEqual(selectedDateFrom, item.date.toISOString()) || !selectedDateFrom
-    );
-  });
+      return isEqual(selectedDateFrom, item?.date) || !selectedDateFrom;
+    });
 
   const handleAddEntry = () => {
-    createTimeEntry(categoryId, markId, { id: uuidv4(), date: new Date() });
+    createTimeEntry(categoryId, markId, {
+      id: uuidv4(),
+      date: new Date().toISOString(),
+    });
   };
 
   return (

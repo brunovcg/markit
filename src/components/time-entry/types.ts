@@ -1,5 +1,5 @@
 export interface ITimeEntry {
-  date: Date;
+  date: string;
   editable: boolean;
   entryId: string | number;
   categoryId: string | number;

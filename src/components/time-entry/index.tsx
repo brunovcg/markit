@@ -25,7 +25,7 @@ function TimeEntry({
 
   return (
     <StyledTimeEntries showConfirm={showConfirm && editable}>
-      <div className="time">{getDateTime(date)}</div>
+      <div className="time">{getDateTime(new Date(date)).toString()}</div>
       {editable && (
         <Button
           onClick={handleShowConfirm}
