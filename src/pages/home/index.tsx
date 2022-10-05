@@ -55,8 +55,12 @@ function Home() {
       marks: [],
     });
 
-  const handleDeleteCategory = (categoryId: string) =>
+  const handleDeleteCategory = (categoryId: string) => {
     deleteCategory(categoryId);
+    if (categoryId === selected.id) {
+      setSelected({} as ICategoriesObject);
+    }
+  };
 
   const handleAddMark = (name: string, color: string) => {
     createMark(selected.id, {
@@ -81,7 +85,11 @@ function Home() {
         onClick={() => openCategoryModal(true)}
       />
 
-      <ButtonList data={data} onClick={handleClickCategory} />
+      <ButtonList
+        data={data}
+        selectedId={selected.id}
+        onClick={handleClickCategory}
+      />
 
       {isSelected && (
         <>

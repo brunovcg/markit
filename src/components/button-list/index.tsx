@@ -2,7 +2,7 @@ import { ButtonListProps } from "./types";
 import Button from "../../components/button";
 import StyledButtonList from "./styles";
 
-function ButtonList({ data, onClick }: ButtonListProps) {
+function ButtonList({ data, onClick, selectedId }: ButtonListProps) {
   return (
     <StyledButtonList>
       {data?.map((item) => {
@@ -14,6 +14,7 @@ function ButtonList({ data, onClick }: ButtonListProps) {
             color={color}
             onClick={(e) => onClick(e, item)}
             size="fit-content"
+            outlineColor={selectedId === id ? "var(--secondary)" : ""}
           />
         );
       })}

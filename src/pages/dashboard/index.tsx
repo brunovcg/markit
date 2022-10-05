@@ -6,7 +6,6 @@ import TimeEntries from "../../components/time-entry";
 import { useState } from "react";
 import { dateHelpers } from "../../helpers/dataHelpers";
 import { v4 as uuidv4 } from "uuid";
-import DateRangePicker from "../../components/date-range-picker";
 import { useData } from "../../providers/data";
 
 function Dashboard() {
@@ -20,20 +19,34 @@ function Dashboard() {
   const { categoryId } = location?.state;
   const { name, entries, id: markId } = location?.state.mark;
 
-  const [selectedDate, setSelected] = useState<string>("");
+  const [selectedDateFrom, setSelectedFrom] = useState<string>("");
+  const [selectedDateTo, setSelectedTo] = useState<string>("");
 
-  const { isEqual } = dateHelpers;
+  const { isEqual, isBetween } = dateHelpers;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(e.target.value);
+  const handleChangeFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFrom(e.target.value);
+  };
+
+  const handleChangeTo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedTo(e.target.value);
   };
 
   const handleEditable = () => setEditable(!editable);
 
-  const filteredDates = entries?.filter(
-    (item: ITimeEntriesObject) =>
-      isEqual(selectedDate, item.date.toISOString()) || !selectedDate
-  );
+  const filteredDates = entries?.filter((item: ITimeEntriesObject) => {
+    if (selectedDateFrom && selectedDateTo) {
+      return isBetween(
+        selectedDateFrom,
+        selectedDateTo,
+        item.date.toISOString()
+      );
+    }
+
+    return (
+      isEqual(selectedDateFrom, item.date.toISOString()) || !selectedDateFrom
+    );
+  });
 
   const handleAddEntry = () => {
     createTimeEntry(categoryId, markId, { id: uuidv4(), date: new Date() });
@@ -54,7 +67,27 @@ function Dashboard() {
       <h2>{name}</h2>
 
       <div className="option">
-        <input type="date" value={selectedDate} onChange={handleChange} />
+        <div className="dates">
+          <label htmlFor="dashboard-input-from">
+            Data
+            <input
+              id="dashboard-input-from"
+              type="date"
+              value={selectedDateFrom}
+              onChange={handleChangeFrom}
+            />
+          </label>
+          {selectedDateFrom && (
+            <label htmlFor="dashboard-input-from">
+              Até
+              <input
+                type="date"
+                value={selectedDateTo}
+                onChange={handleChangeTo}
+              />
+            </label>
+          )}
+        </div>
         <Button
           variant="secondary"
           name={editable ? "Cancelar" : "Apagar Entradas"}
